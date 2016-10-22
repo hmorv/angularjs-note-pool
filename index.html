@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>Note Pool</title>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<style type="text/css">
+		@import url('https://fonts.googleapis.com/css?family=Raleway');
+		* {
+			font-family: 'Raleway', sans-serif;
+		}
+		.note {
+			overflow: hidden;
+		}
+		/*.note-text {
+			font-weight: bolder;
+
+		}*/
+	</style>
+
+</head>
+<body>
+	
+	<div class="jumbotron">
+		<h1 class="text-center">AngularJS Note pool</h1>
+	</div>
+
+	<div class="container-fluid" data-ng-controller="dataController">
+
+		<header class="row">
+			<div class="col-md-12">
+			</div>
+		</header>
+
+		<nav class="row">
+			
+			<div class="col-md-8 col-lg-offset-2">
+				<!-- <h2 class="text-center"></h2> -->
+			</div>
+
+		</nav>
+
+		<div class="row" >
+
+			<section>
+				<h3 class="text-center">Add and delete notes as a ninja!</h3>
+				<div class="col-xs-12 col-lg-6">
+					<article>
+
+						<h3 class="text-center">Push your note</h3>
+						
+						<form name="myForm">
+
+							<div class="form-group">
+								<label for="email">Email address:</label>
+								<input type="email" class="form-control" id="email" name="email" data-ng-model="email">
+								<span data-ng-show="myForm.email.$touched && myForm.email.$invalid"> This is required</span>
+							</div>
+
+							<div class="form-group">
+								<label for="txt">Note:</label>
+								<input type="text" class="form-control" id="txt" name="note" data-ng-model="text">
+								<span data-ng-show="myForm.note.$touched && myForm.note.$invalid"> This is required</span>
+							</div>
+
+							<div class="checkbox">
+								<label><input type="checkbox" data-ng-model="private"> <em>store the note as <strong>private</strong></em></label>
+
+							</div>
+
+							<button class="btn btn-primary btn-block" data-ng-disabled="!(email.length && text.length)" data-ng-click="addNote()">Push!</button>
+
+						</form>
+
+					</article>
+
+				</div>
+
+			</section>
+			
+			<aside class="col-xs-12 col-lg-6">
+				
+				<h3 class="text-center">Stored notes</h3>
+				
+				<span data-ng-if="notes.length > 0" class="alert alert-info">Total notes: {{notes.length}}</span>
+				<span data-ng-if="notes.length == 0 " class="alert alert-warning">No notes at the moment!</span>
+				
+				<ul class="list-group">
+					<li class="list-group-item" data-ng-repeat="note in notes track by $index" data-ng-bind-html-unsafe="note.id note.text note.email note.private" id="{{ note.id }}">
+						
+						<div data-ng-if="note" class="alert alert-dismissable note" >
+							<p class="text-left note-text"><strong><em>"{{ note.text }}"</em></strong><br /></p><br />
+							<span class="alert alert-info"><a href="mailto:{{ note.email }}">{{ note.email }}</a></span>
+							<span data-ng-click="switchPrivacityNote(this)" class="alert alert-warning" data-ng-if="note.private == true">private</span>
+							<span data-ng-click="switchPrivacityNote(this)" class="alert alert-success" data-ng-if="note.private == false">public</span>
+							<i class="fa fa-close" style="font-size:36px;color:red; float:right" data-ng-click="removeNote(this)"></i>
+						</div>
+
+					</li>
+				</ul>
+
+			</aside>
+
+		</div>
+		
+		<footer class="row">
+
+			<div class="col-md-12">
+				
+				<p class="text-center">This is a simple test using AngularJS. Have fun while learning the basics</p>
+
+			</div>
+
+		</footer>
+
+	</div>
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>
